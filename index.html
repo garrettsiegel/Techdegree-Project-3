@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Register for Full Stack Conf</title>
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="css/style.css">
 </head>
@@ -101,10 +102,10 @@
         </select>
 
         <div id="credit-card" class="credit-card">
-
+          <div id="cc-info">
           <div class="col-6 col">
             <label for="cc-num">Card Number:</label>
-        	  <input id="cc-num" name="user_cc-num" type="text">
+        	  <input id="cc-num" name="user_cc-num" type="text" class="ccnum">
           </div>
 
           <div class="col-3 col">
@@ -116,7 +117,7 @@
             <label for="cvv">CVV:</label>
             <input id="cvv" name="user_cvv" type="text">
           </div>
-
+          </div>
           <label for="exp-month">Expiration Date:</label>
           <select id="exp-month" name="user_exp-month">
             <option value="1">1 - January</option>

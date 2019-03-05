@@ -1,4 +1,4 @@
-/* ================================= 
+/* =================================
   Base Element Styles
 ==================================== */
 
@@ -9,36 +9,47 @@
 body,
 input,
 button {
- font-family: 'Roboto', sans-serif;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 body {
   font: 1em/1.5;
-  color: #184f68;
-	background: #accbd9;
+  color: #666;
+	background: #404552;
 }
 
 header {
-	text-align: center;  
+	text-align: center;
+}
+
+header span {
+  color: lightgray;
+  font-weight: 500;
+  font-size: 1.2em;
+  text-shadow: 1.5px 2px 6px rgba(0, 0, 0, 0.5);
 }
 
 h1 {
 	font-size: 2.5em;
-	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+	text-shadow: 1.5px 2px 6px rgba(0, 0, 0, 0.5);
 	margin: 0;
+  color: lightgray;
+  font-weight: bold;
+
 }
 
 a {
   text-decoration: none;
 }
 
-/* ================================= 
+/* =================================
   Form Element Styles
 ==================================== */
 
 form {
 	padding: .875em 1.875em 1.875em;
-	background: #85b5ca;
+	background: #38383d;
+  border-radius: .75em;
 }
 
 fieldset,
@@ -49,19 +60,20 @@ button {
 }
 
 fieldset {
-	margin-top: 1.5em;
+	margin-top: 1.6em;
 }
 
 legend,
 button {
-	font-size: 1.25em;	
+	font-size: 1.25em;
 }
 
 legend {
-	font-weight: 500;
+	font-weight: 700;
 	padding-top: .5em;
-	border-top: 2px solid #679cb3;
+	border-top: 1.5px solid lightgray;
 	margin-bottom: 1.125em;
+  color: #45a1ff;
 }
 
 input[type="text"],
@@ -70,29 +82,32 @@ legend {
 	width: 100%;
 }
 
+
+
 label {
-	color: #000;
+	color: #fff;
 	display: block;
 	margin-bottom: .5em;
 }
 
 input,
 select {
-	margin-bottom: 1.125em;	
+	margin-bottom: 1.125em;
 }
 
 input {
 	font-size: 1em;
 	font-weight: 500;
 	padding: .8em;
-	background: #c1deeb;
-	border: 2px solid #c1deeb;
+	background: silver;
+	border: 2px solid #38383d;
 	outline: none;
+  border-radius: .75em;
 }
 
 input:focus {
 	background: #fff;
-	border-color: #5e97b0;
+	border-color: #45a1ff;
 	transition: border-color .4s, background-color .4s;
 }
 
@@ -104,16 +119,35 @@ input[type="radio"] {
 button {
 	color: #fff;
 	padding: .55em 1.25em;
-	background: #22627e;
-	margin: 1.25em 0 .5em;
+	background: #45a1ff;
+	margin: 1.25em 0 1em;
 	cursor: pointer;
+  border-radius: .5em;
+  font-weight: bold;
 }
 
 button:hover {
-	background: #184c62;
+	background: #285d93;
 }
 
-/* ================================= 
+
+#sum,
+.activities span {
+  color: #45a1ff;
+}
+
+#ccError {
+  color: red;
+  font-weight: bold;
+  margin-bottom: 1em;
+}
+
+#checkBoxValidation {
+  color: red;
+  font-weight: bold;
+  line-height: 1.75em;
+}
+/* =================================
   Page Styles
 ==================================== */
 
@@ -135,7 +169,7 @@ button:hover {
 	margin-top: 1.25em;
 }
 
-/* ================================= 
+/* =================================
   Helper Classes
 ==================================== */
 
@@ -149,7 +183,18 @@ button:hover {
   clear: both;
 }
 
-/* ================================= 
+
+#nameSpan,
+#mailSpan,
+#ccValidationSpan {
+  display: none;
+  color: red;
+  text-align: right;
+  margin-top: -10px;
+}
+
+
+/* =================================
   Media Queries
 ==================================== */
 

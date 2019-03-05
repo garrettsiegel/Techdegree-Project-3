@@ -1,7 +1,12 @@
+//*****PAGELOAD
+
+//RESETS FORM UPON PAGE LOAD
 $('form')[0].reset();
 //SETS FOCUS UP TO FIRST TEXT FIELD UPON PAGE LOAD
 $("#name").focus();
 
+
+//*****JOB ROLES
 
 //HIDES OTHER JOB TITLE UPON PAGE LOAD
 $('.other').hide();
@@ -17,11 +22,16 @@ $('#title').on('change', () => {
   }
 })
 
+
+//*****T-SHIRT INFO
+
+//INITIALLY SETS SIZE TO SMALL
 $('#size').val('small').show();
 //INITIALLY HIDES ALL T-SHIRT COLOR OPTIONS
 $('#colors-js-puns').hide();
 //ADDS RED CSS BORDER HIGHLIGHT TO DESIGN BOX
-$('#design').css("border", "red solid 2px");
+$('#design').css("border", "#45a1ff solid 2px");
+
 //FUNCTION FOR WHEN T-SHIRT DESIGN OPTION IS CHANGED
 $('#design').on('change', () => {
   //IF JS PUNS OPTION IS SELECTED
@@ -35,7 +45,7 @@ $('#design').on('change', () => {
     //SHOWS INITIAL CHOICE AS FIRST COLOR OPTION
     $('#color').val('cornflowerblue').show();
     //REMOVES BORDER HIGHLIGHT
-    $('#design').css("border", "none");
+    $('#design').css("border", "#666 solid .5px");
   }
   //IF HEART JS OPTION IS SELECTED
   else if ($('#design option').eq(2).is(':selected')) {
@@ -48,76 +58,384 @@ $('#design').on('change', () => {
     //SHOWS INITIAL CHOICE AS FIRST COLOR OPTION
     $('#color').val('tomato').show();
     //REMOVES BORDER HIGHLIGHT
-    $('#design').css("border", "none");
+    $('#design').css("border", "#666 solid .5px");
   }
   else {
     //HIDES T-SHIRT COLOR OPTIONS BOX
     $('#colors-js-puns').hide();
     //ADDS RED CSS BORDER HIGHLIGHT TO DESIGN BOX
-    $('#design').css("border", "red solid 2px");
+    $('#design').css("border", "#45a1ff solid 2px");
   }
 });
 
 
+//*****REGISTER FOR ACTIVITIES
 
-
-$('.activities input').attr('value', 100);
-$('.activities input').eq(0).attr('value', 200);
-
+//FUNCTIONS TO DIM ACTIVITIES THAT ARE AT SAME TIME UPON SELECTION
 $('.activities').on('change', () => {
   if ($('.activities input').eq(1).is(':checked')) {
      $('.activities input').eq(3).attr('disabled', true);
-     $('.activities label').eq(3).css("color", "lightgray");
+     $('.activities label').eq(3).css("color", "dimgray");
    } else if ($('.activities input').eq(3).is(':checked')) {
         $('.activities input').eq(1).attr('disabled', true);
-        $('.activities label').eq(1).css("color", "lightgray");
+        $('.activities label').eq(1).css("color", "dimgray");
    } else {
      $('.activities input').filter(':eq(1), :eq(3)').attr('disabled', false);
-     $('.activities label').filter(':eq(1), :eq(3)').css("color", "black");
+     $('.activities label').filter(':eq(1), :eq(3)').css("color", "white");
    }
 });
 
 $('.activities').on('change', () => {
   if ($('.activities input').eq(2).is(':checked')) {
      $('.activities input').eq(4).attr('disabled', true);
-     $('.activities label').eq(4).css("color", "lightgray");
+     $('.activities label').eq(4).css("color", "dimgray");
    } else if ($('.activities input').eq(4).is(':checked')) {
         $('.activities input').eq(2).attr('disabled', true);
-        $('.activities label').eq(2).css("color", "lightgray");
+        $('.activities label').eq(2).css("color", "dimgray");
    } else {
      $('.activities input').filter(':eq(2), :eq(4)').attr('disabled', false);
-     $('.activities label').filter(':eq(2), :eq(4)').css("color", "black");
+     $('.activities label').filter(':eq(2), :eq(4)').css("color", "white");
    }
 });
 
 
-// let $sum = 0;
-// const $total = $('<div id="total"></div>');
-// $total.append("<span>Total: $" + $sum + "</span>");
-// $total.css("font-weight", "bold");
-// $('.activities').append($total);
-// $(".activities input").change(function() {
-//     if($('.activities input').val(':checked')) {
-//         $sum += parseFloat($(this).val());
-//     } else {
-//         $sum -= parseFloat($(this).val());
-//     }
-// return $sum;
-// $('.activities').append($total);
-// });
-
-
+//SETS SUM TO ZERO
 let $sum = 0;
-const $total = $('<div id="total"></div>');
-$total.append("<span>Total: $</span>");
+//TEXT SPAN FOR TOTAL AMOUNT
+const $total = $('<span>Total: $</span>');
+//SPAN FOR SUM AMOUNT
+let $sumText = $('<span id="sum"></span>');
+//APPENDS SUM AMOUNT TO SPAN
+$sumText.append($sum);
+//APPENDS SUM SPAN TO TOTAL SPAN
+$total.append($sumText);
+//CSS TO BOLD TOTAL AND SUM TEXT
 $total.css("font-weight", "bold");
-var $checkedBox = $(":checkbox:checked");
-$('.activities input').on('change', () => {
-  if ($checkedBox) {
-    $sum += parseFloat($(this).val());
-  } else {
-    $sum -= parseFloat($(this).val());
+//APPPENDS TOTAL TEXT TO END OF ACTIVITIES CLASS
+$('.activities').append($total);
+
+//TOTAL AMOUNT FUNCTION FOR CHOSEN ACTIVITIES
+$('.activities input').on('change', event => {
+  //SETS EVENT TARGET AS A VARIABLE
+  const $eventTarget = $(event.target);
+  //VARIABLE TO GET THE EVENT TARGET'S NAME ATTRIBUTE
+  const $name = $eventTarget.attr('name');
+  //CONDITION TO SEE IF CHECKBOX IS CHECKED
+  if ($eventTarget.is(':checked')) {
+      //IF CHECKED AND NAME ATTRIBUTE IS "ALL"
+      if ($name === 'all') {
+      //ADD $200 TO SUM
+      $sum += 200;
+      //IF CHECKED AND NAME ATTRIBUTE IS NOT "ALL"
+      } else {
+      //ADD $100 TO SUM
+      $sum += 100;
+    //IF NOT CHECKED
+  }} else {
+      //IF NOT UNCHECKED AND NAME ATTRIBUTE IS "ALL"
+      if ($name === 'all') {
+      //REDUCE $200 FROM SUM
+      $sum -= 200;
+      //IF NOT CHECKED AND NAME ATTRIBUTE IS NOT "ALL"
+    } else {
+      //REDUCE $100 FROM SUM
+      $sum -= 100;
+    }
   }
-  return $sum;
-  $total.append('$sum');
+  //POPULATE SUM CLASS WITH THE TEXT CONTAINING CURRENT SUM AMOUNT
+  $('#sum').text($sum);
+});
+
+
+//*****CHECKBOX VALIDATION
+
+//CHECKBOX ERROR SPAN FOR NO CHECKBOXES CHECKED
+const $checkboxErrorSpan = $('<span id="checkBoxValidation">Please select at least one activity.</span><br><br>');
+//SETS CHECKBOX ERROR SPAN TO BE BEFORE THE CHECKBOX TOTAL
+$total.prepend($checkboxErrorSpan);
+
+//FUNCTION TO SEE IF CHECKBOXES ARE CHECKED
+$('.activities input').on('change', event => {
+  //VARIABLE TO SET EVENT TARGET
+  const $eventTarget = $(event.target);
+  //IF AMOUNT OF CHECKBOXES CHECKED IS GREATER THAN ZERO
+  if ($('.activities input:checkbox:checked').length > 0) {
+    //ERROR MESSAGE BELOW CHECKBOXES IS HIDDEN
+    $checkboxErrorSpan.fadeOut();
+    //ERROR MESSAGE BELOW BUTTON IS HIDDEN
+    $checkboxButtonErrorSpan.fadeOut();
+  } else {
+    //ERROR MESSAGE BELOW CHECKBOXES IS SHOWN
+    $checkboxErrorSpan.fadeIn();
+  }
+});
+
+
+//*****PAYMENT INFO
+
+//CREDIT CARD OPTION VARIABLE
+const $ccOption = $('#credit-card');
+//PAYPAL OPTION VARIABLE
+const $paypalOption = $('#credit-card').next();
+$paypalOption.css("color", "gainsboro");
+//BITCOIN OPTION VARIABLE
+const $bitcoinOption = $('#credit-card').next().next();
+$bitcoinOption.css("color", "gainsboro");
+//DISABLES THE "SELECT PAYMENT METHOD OPTION"
+$('#payment option').eq(0).prop('disabled', true);
+//SETS CREDIT CARD AS DEFAULT PAYMENT DROP-DOWN METHOD
+$('#payment').val('credit card').show();
+//INITIAL HIDE OF PAYPAL INFO
+$paypalOption.hide();
+//INITIAL HIDE OF BITCOIN INFO
+$bitcoinOption.hide();
+
+
+//*****PAYMENT VALIDATION
+
+//SPAN FOR CREDIT CARD NUMBER ERROR
+const $ccNumErrorSpan = $('<br><span id="checkBoxValidation">Please enter a valid credit card number above.</span>');
+//APPEND SPAN AFTER BUTTON
+$('button').after($ccNumErrorSpan);
+//HIDE SPAN
+$ccNumErrorSpan.hide();
+
+//SPAN FOR ZIP CODE ERROR
+const $zipErrorSpan = $('<br><span id="checkBoxValidation">Please enter a valid zip code above.</span>');
+//APPEND SPAN AFTER BUTTON
+$('button').after($zipErrorSpan);
+//HIDE SPAN
+$zipErrorSpan.hide();
+
+//SPAN FOR CVV NUMBER ERROR
+const $cvvErrorSpan = $('<br><span id="checkBoxValidation">Please enter a valid CVV number above.</span>');
+//APPEND SPAN AFTER BUTTON
+$('button').after($cvvErrorSpan);
+//HIDE SPAN
+$cvvErrorSpan.hide();
+
+
+//FUNCTION FOR WHEN SUBMIT BUTTON IS CLICKED
+$("form").submit( e => {
+    //IF THERE IS NO CREDIT CARD NUMBER ENTERED
+    if ($('#cc-num').val().length === 0) {
+      //ERROR MESSAGE FADE IN
+      $ccNumErrorSpan.fadeIn();
+      //PREVENT BUTTON DEFAULT FROM SUBMITTING
+      e.preventDefault();}
+    if ($('#zip').val().length === 0) {
+      //ERROR MESSAGE FADE IN
+      $zipErrorSpan.fadeIn();
+      //PREVENT BUTTON DEFAULT FROM SUBMITTING
+      e.preventDefault();}
+    if ($('#cvv').val().length === 0) {
+      //ERROR MESSAGE FADE IN
+      $cvvErrorSpan.fadeIn();
+      //PREVENT BUTTON DEFAULT FROM SUBMITTING
+      e.preventDefault();}
+});
+
+
+//FUNCTION FOR CHANGES TO THE PAYMENT METHOD DROP-DOWN
+$('#payment').on('change', () => {
+  //SWITCH CONDITIONAL TO CHECK VALUE OF PAYMENT METHOD
+  switch ($('#payment').val()) {
+    //WHEN CREDIT CARD SELECTED, HIDE OTHER METHODS, SHOW CREDIT CARD INFO
+    case 'credit card':
+    $paypalOption.hide();
+    $bitcoinOption.hide();
+    $ccOption.fadeIn();
+
+    $("form").submit( e => {
+      $ccNumErrorSpan.fadeIn();
+      $zipErrorSpan.fadeIn();
+      $cvvErrorSpan.fadeIn();
+    });
+
+    break;
+    //WHEN PAYPAL SELECTED, HIDE OTHER METHODS, SHOW PAYPAL INFO
+    case 'paypal':
+    $ccOption.hide();
+    $bitcoinOption.hide();
+    $paypalOption.fadeIn();
+
+    $("form").submit( e => {
+      $ccNumErrorSpan.fadeOut();
+      $zipErrorSpan.fadeOut();
+      $cvvErrorSpan.fadeOut();
+    });
+
+    break;
+    //WHEN BITCOIN SELECTED, HIDE OTHER METHODS, SHOW BITCOIN
+    case 'bitcoin':
+    $ccOption.hide();
+    $paypalOption.hide();
+    $bitcoinOption.fadeIn();
+
+    $("form").submit( e => {
+      $ccNumErrorSpan.fadeOut();
+      $zipErrorSpan.fadeOut();
+      $cvvErrorSpan.fadeOut();
+    });
+
+    break;
+  }
+});
+
+
+//*****FORM VALIDATION
+
+
+
+
+
+
+const $nameSpan = $('<span id="nameSpan">Can only contain the letters A-Z.</span>');
+$('#name').after($nameSpan);
+const nameInput = document.getElementById("name");
+
+function isValidName(name) {
+  const $regex = /^[a-zA-Z]+$/;
+  return $regex.test(name);
+}
+
+const $mailSpan = $('<span id="mailSpan">Must be a valid email address.</span>');
+$('#mail').after($mailSpan);
+const mailInput = document.getElementById("mail");
+
+function isValidMail(mail) {
+  const $regex = /^[^@]+@[^@.]+\.[a-z]+$/i;
+  return $regex.test(mail);
+}
+
+// const $ccValidationSpan = $('<div id="ccValidationSpan">Must contain between 13 and 16 digits.</div>');
+// $('#cc-info').after($ccValidationSpan);
+// const ccValueInput = document.querySelector('#cc-num');
+//
+// function isValidccNum(ccNum) {
+//   const $regex = /^\d{12,15}$/;
+//   return $regex.test(ccNum);
+// }
+
+const $zipValidationSpan = $('<div id="ccValidationSpan">Please enter a valid zip code.</div>');
+$('#cc-info').after($zipValidationSpan);
+const zipInput = document.getElementById('zip');
+
+function isValidZip(zip) {
+  const $regex = /^\d{5}$/;
+  return $regex.test(zip);
+}
+
+// const $ccValidationSpan = $('<span id="ccValidationSpan">Must contain between 13 and 16 digits.</span>');
+// $('#cc-info').after($ccValidationSpan);
+// const ccValueInput = document.querySelectorAll('cc-num');
+//
+// function isValidccNum(ccNum) {
+//   const $regex = /^\d{12,15}$/;
+//   return $regex.test(ccNum);
+// }
+
+function createListener(variable) {
+  return event => {
+    const eventTargetValue = event.target.value;
+    const valid = variable(eventTargetValue);
+    const showErrorMsg = eventTargetValue !== "" && !valid;
+    const errorMsg = event.target.nextElementSibling;
+    if (showErrorMsg) {
+      errorMsg.style.display = "inherit";
+    } else {
+      errorMsg.style.display = "none";
+    }
+  };
+}
+
+nameInput.addEventListener("input", createListener(isValidName));
+mailInput.addEventListener("input", createListener(isValidMail));
+// ccValueInput.addEventListener("input", createListener(isValidccNum));
+zipInput.addEventListener("input", createListener(isValidZip));
+
+// FORM SUBMIT ERROR MESSAGES
+
+//SPAN FOR NO CHECKBOXES CHECKED ERROR FOR SUBMIT BUTTON
+const $checkboxButtonErrorSpan = $('<br><span id="checkBoxValidation">Please select at least one activity in order to submit registration.</span>');
+//APPEND SPAN AFTER BUTTON
+$('button').after($checkboxButtonErrorSpan);
+//HIDE SPAN
+$checkboxButtonErrorSpan.hide();
+
+//SPAN FOR NO NAME ERROR
+const $nameErrorSpan = $('<br><span id="checkBoxValidation">Please enter a valid name above.</span>');
+//APPEND SPAN AFTER BUTTON
+$('button').after($nameErrorSpan);
+//HIDE SPAN
+$nameErrorSpan.hide();
+
+//SPAN FOR EMAIL ERROR
+const $emailErrorSpan = $('<br><span id="checkBoxValidation">Please enter a valid email address above.</span>');
+//APPEND SPAN AFTER BUTTON
+$('button').after($emailErrorSpan);
+//HIDE SPAN
+$emailErrorSpan.hide();
+
+//FUNCTION FOR ERROR MESSAGES UPON SUBMIT BUTTON CLICK
+$("form").submit( e => {
+  //EMAIL REGULAR EXPRESSION VARIABLE
+  const $emailRegex = /^[^@]+@[^@.]+\.[a-z]+$/i;
+  //IF NAME INPUT HAS NO VALUE
+  if ($('#name').val().length === 0) {
+    //ERROR MESSAGE FADE IN
+    $nameErrorSpan.fadeIn();
+    //PREVENT BUTTON DEFAULT FROM SUBMITTING
+    e.preventDefault();}
+    else {
+      //ERROR MESSAGE FADE OUT
+      $nameErrorSpan.fadeOut();
+    }
+  //IF MAIL INPUT DOES NOT MATCH EMAIL REGULAR EXPRESSION VALUE
+  // if (!$emailRegex.test(mail)){
+  //   //ERROR MESSAGE FADE IN
+  //   $emailErrorSpan.fadeIn();
+  //   //PREVENT BUTTON DEFAULT FROM SUBMITTING
+  //   e.preventDefault();}
+  //   else {
+  //     //ERROR MESSAGE FADE OUT
+  //     $emailErrorSpan.fadeOut();
+  //   }
+  //IF NO CHECKBOXES ARE CHECKED
+  if(!$('input[type=checkbox]:checked').length) {
+    //ERROR MESSAGE FADE IN
+    $checkboxButtonErrorSpan.fadeIn();
+    //PREVENT BUTTON DEFAULT FROM SUBMITTING
+    e.preventDefault();
+  }
+  //IF CREDIT CARD NUMBER FIELD HAS NO VALUE
+  if ($('#cc-num').val().length === 0) {
+    //ERROR MESSAGE FADE IN
+    $ccNumErrorSpan.fadeIn();
+    //PREVENT BUTTON DEFAULT FROM SUBMITTING
+    e.preventDefault();}
+    else {
+      //ERROR MESSAGE FADE OUT
+      $ccNumErrorSpan.fadeOut();
+    }
+  //IF ZIP CODE FIELD HAS NO VALUE
+  if ($('#zip').val().length === 0) {
+    //ERROR MESSAGE FADE IN
+    $zipErrorSpan.fadeIn();
+    //PREVENT BUTTON DEFAULT FROM SUBMITTING
+    e.preventDefault();}
+    else {
+      //ERROR MESSAGE FADE OUT
+      $zipErrorSpan.fadeOut();
+    }
+  //IF CVV NUMBER FIELD VALUE HAS NO VALUE
+  if ($('#cvv').val().length === 0) {
+    //ERROR MESSAGE FADE IN
+    $cvvErrorSpan.fadeIn();
+    //PREVENT BUTTON DEFAULT FROM SUBMITTING
+    e.preventDefault();}
+    else {
+      //ERROR MESSAGE FADE OUT
+      $cvvErrorSpan.fadeOut();
+    }
 });
