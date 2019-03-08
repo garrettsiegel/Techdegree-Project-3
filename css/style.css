@@ -130,22 +130,35 @@ button:hover {
 	background: #285d93;
 }
 
-
 #sum,
 .activities span {
   color: #45a1ff;
 }
 
-#ccError {
-  color: red;
+.nameError,
+.mailError {
+  display: block;
+  text-align: right;
   font-weight: bold;
+  color: red;
   margin-bottom: 1em;
 }
 
-#checkBoxValidation {
-  color: red;
+.buttonError,
+.paymentError {
+  display: block;
+  text-align: left;
   font-weight: bold;
-  line-height: 1.75em;
+  color: red;
+  margin-bottom: 1em;
+}
+
+.checkBoxError {
+  display: block;
+  text-align: left;
+  font-weight: bold;
+  color: red;
+  margin-top: 1em;
 }
 /* =================================
   Page Styles
@@ -182,18 +195,6 @@ button:hover {
   display: table;
   clear: both;
 }
-
-
-#nameSpan,
-#mailSpan,
-#ccValidationSpan {
-  display: none;
-  color: red;
-  text-align: right;
-  margin-top: -10px;
-}
-
-
 /* =================================
   Media Queries
 ==================================== */
