@@ -20,7 +20,7 @@ $('#title').on('change', () => {
     //HIDE OTHER JOB INPUT BOX
     $('.other').slideUp();
   }
-})
+});
 
 
 //*****T-SHIRT INFO
@@ -195,33 +195,22 @@ $('#payment').on('change', () => {
 
 //*****VALIDATION
 
-//*****BASIC INFO INPUT VALIDATION
+//*****BASIC INFO VALIDATION VARIABLES
 const $submitButton = $('button');
+const $buttonErrorSpan = $('<span class="buttonError">Please fix errors before submitting form.</span>');
+$submitButton.after($buttonErrorSpan);
+$buttonErrorSpan.hide();
 const $nameInput = $('#name');
-const $mailInput = $('#mail');
 const $nameSpan = $('<span class="nameError">Please enter only alphabetic characters.</span>');
-const $nameSpan2 = $('<span class="nameError">Name field cannot be empty.</span>');
+$nameInput.after($nameSpan);
+$nameSpan.hide();
+const $nameSpan2 = $('<span class="nameError">Please enter name.</span>');
+$nameInput.after($nameSpan2);
+const $mailInput = $('#mail');
 const $mailSpan = $('<span class="mailError">Please enter a valid email address.</span>');
 $mailInput.after($mailSpan);
-$mailSpan.hide();
-const $nameSpanButton = $('<span class="buttonError">Name field cannot be empty.</span>');
-const $mailSpanButton = $('<span class="buttonError">Please enter a valid email address.</span>');
 
-function placeNameSpanHide($var) {
-  $nameInput.after($var);
-  $var.hide();
-}
-placeNameSpanHide($nameSpan);
-placeNameSpanHide($nameSpan2);
-
-function placeNameButtonSpanHide($var) {
-  $submitButton.after($var);
-  $var.hide();
-}
-placeNameButtonSpanHide($nameSpanButton);
-placeNameButtonSpanHide($mailSpanButton);
-
-
+//*****NAME INPUT VALIDATION
 $nameInput.keyup( () => {
   const $nameVal = $nameInput.val();
   const $nameRegex = /^[a-zA-Z]+(\s[a-zA-Z]+)?$/i;
@@ -238,6 +227,7 @@ $nameInput.keyup( () => {
   }
 });
 
+//*****MAIL INPUT VALIDATION
 $mailInput.keyup( () => {
   const $mailVal = $mailInput.val();
   const $mailRegex = /^[^@]+@[^@.]+\.[a-z]+$/i;
@@ -248,20 +238,12 @@ $mailInput.keyup( () => {
   }
 });
 
-
 //*****CHECKBOX VALIDATION
-
 const $checkBox = $('.activities');
 const $checkBoxSpan = $('<span class="checkBoxError">Please select at least one option.</span>');
 $checkBox.after($checkBoxSpan);
-$checkBoxSpan.hide();
-
-const $checkBoxButtonSpan = $('<span class="buttonError">Please select at least one option.</span>');
-$submitButton.after($checkBoxButtonSpan);
-$checkBoxButtonSpan.hide();
 
 $checkBox.on('change', e => {
-  // const $checkBoxInput = $('.activities input');
   if ($('input[type=checkbox]:checked').length) {
     $checkBoxSpan.hide();
   } else {
@@ -269,21 +251,15 @@ $checkBox.on('change', e => {
   }
 });
 
-
 //*****PAYMENT VALIDATION
-
 const $expMonth = $('#exp-month');
+const $paymentMeth = $('#payment');
+const $ccNum = $('#cc-num');
 const $ccNumSpan = $('<span class="paymentError">Please enter a valid credit card number.</span>');
 const $ccNumSpan2 = $('<span class="paymentError">Please enter a credit card number that is between 13 and 16 digits.</span>');
 $expMonth.prev().before($ccNumSpan);
-$ccNumSpan.hide();
 $expMonth.prev().before($ccNumSpan2);
 $ccNumSpan2.hide();
-const $paymentMeth = $('#payment');
-const $ccNum = $('#cc-num');
-const $ccNumButtonSpan = $('<span class="buttonError">Please enter a valid credit card number.</span>');
-$submitButton.after($ccNumButtonSpan);
-$ccNumButtonSpan.hide();
 
     $ccNum.keyup( () => {
       if ($paymentMeth.val('credit card')) {
@@ -303,14 +279,9 @@ $ccNumButtonSpan.hide();
       }
     });
 
-
+    const $zip = $('#zip');
     const $zipSpan = $('<span class="paymentError">Please enter a valid 5 digit zip code.</span>');
     $expMonth.prev().before($zipSpan);
-    $zipSpan.hide();
-    const $zip = $('#zip');
-    const $zipButtonSpan = $('<span class="buttonError">Please enter a valid 5 digit zip code.</span>');
-    $submitButton.after($zipButtonSpan);
-    $zipButtonSpan.hide();
 
         $zip.keyup( () => {
           if ($paymentMeth.val('credit card')) {
@@ -330,14 +301,9 @@ $ccNumButtonSpan.hide();
           }
         });
 
-
+        const $cvv = $('#cvv');
         const $cvvSpan = $('<span class="paymentError">Please enter a valid 3 digit CVV number.</span>');
         $expMonth.prev().before($cvvSpan);
-        $cvvSpan.hide();
-        const $cvv = $('#cvv');
-        const $cvvButtonSpan = $('<span class="buttonError">Please enter a valid 3 digit CVV number.</span>');
-        $submitButton.after($cvvButtonSpan);
-        $cvvButtonSpan.hide();
 
             $cvv.keyup( () => {
               if ($paymentMeth.val('credit card')) {
@@ -357,10 +323,9 @@ $ccNumButtonSpan.hide();
               }
             });
 
-
 //*****BUTTON VALIDATION
-
 $submitButton.on('click', e => {
+
 const $nameVal = $nameInput.val();
 const $mailVal = $mailInput.val();
 const $ccNumVal = $('#cc-num').val();
@@ -370,40 +335,47 @@ const $zipVal = $('#zip').val();
 const $zipRegex = /^\d{5}$/;
 const $cvvVal = $('#cvv').val();
 const $cvvRegex = /^\d{3}$/;
+
 if ($nameVal == "") {
   e.preventDefault();
-  $nameSpanButton.show();
+  $buttonErrorSpan.show();
 } else {
-  $nameSpanButton.hide();
+  $buttonErrorSpan.hide();
 }
 if (!$mailVal.match($mailRegex)) {
   e.preventDefault();
-  $mailSpanButton.show();
+  $buttonErrorSpan.show();
 } else {
-  $mailSpanButton.hide();
+  $buttonErrorSpan.hide();
 }
 if (!$('input[type=checkbox]:checked').length) {
   e.preventDefault();
-  $checkBoxButtonSpan.show();
-} else {
-  $checkBoxButtonSpan.hide();
+  $buttonErrorSpan.show();
 }
-if ($ccNumVal == "" || !$ccNumVal.match($ccNumRegex)) {
-  e.preventDefault();
-  $ccNumButtonSpan.show();
-} else {
-  $ccNumButtonSpan.hide();
+else {
+  $buttonErrorSpan.hide();
 }
-if ($zipVal == "" || !$zipVal.match($zipRegex)) {
+if ($paymentMeth.val() == 'credit card') {
+if ($ccNumVal == "") {
   e.preventDefault();
-  $zipButtonSpan.show();
-} else {
-  $zipButtonSpan.hide();
+  $buttonErrorSpan.show();
 }
-if ($cvvVal == "" || !$cvvVal.match($cvvRegex)) {
+else {
+  $buttonErrorSpan.hide();
+}
+if ($zipVal == "") {
   e.preventDefault();
-  $cvvButtonSpan.show();
-} else {
-  $cvvButtonSpan.hide();
+  $buttonErrorSpan.show();
+}
+else {
+  $buttonErrorSpan.hide();
+}
+  if ($cvvVal == "") {
+  e.preventDefault();
+  $buttonErrorSpan.show();
+}
+else {
+  $buttonErrorSpan.hide();
+}
 }
 });
