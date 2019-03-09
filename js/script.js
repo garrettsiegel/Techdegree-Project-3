@@ -204,7 +204,7 @@ const $nameInput = $('#name');
 const $nameSpan = $('<span class="nameError">Please enter only alphabetic characters.</span>');
 $nameInput.after($nameSpan);
 $nameSpan.hide();
-const $nameSpan2 = $('<span class="nameError">Please enter name.</span>');
+const $nameSpan2 = $('<span class="nameError">Please enter a name.</span>');
 $nameInput.after($nameSpan2);
 const $mailInput = $('#mail');
 const $mailSpan = $('<span class="mailError">Please enter a valid email address.</span>');
@@ -213,17 +213,17 @@ $mailInput.after($mailSpan);
 //*****NAME INPUT VALIDATION
 $nameInput.keyup( () => {
   const $nameVal = $nameInput.val();
-  const $nameRegex = /^[a-zA-Z]+(\s[a-zA-Z]+)?$/i;
+  const $nameRegex = /^[a-zA-Z]+(\s[a-zA-Z]+)?(\s)?$/i;
   if ($nameVal != "") {
-    $nameSpan2.hide();
+    $nameSpan2.fadeOut();
     if (!$nameVal.match($nameRegex)) {
-      $nameSpan.show();
+      $nameSpan.fadeIn();
     } else {
-      $nameSpan.hide();
+      $nameSpan.fadeOut();
     }
   } else {
-    $nameSpan.hide();
-    $nameSpan2.show();
+    $nameSpan.fadeOut();
+    $nameSpan2.fadeIn();
   }
 });
 
@@ -232,9 +232,9 @@ $mailInput.keyup( () => {
   const $mailVal = $mailInput.val();
   const $mailRegex = /^[^@]+@[^@.]+\.[a-z]+$/i;
   if (!$mailVal.match($mailRegex)) {
-    $mailSpan.show();
+    $mailSpan.fadeIn();
   } else {
-    $mailSpan.hide();
+    $mailSpan.fadeOut();
   }
 });
 
@@ -245,9 +245,9 @@ $checkBox.after($checkBoxSpan);
 
 $checkBox.on('change', e => {
   if ($('input[type=checkbox]:checked').length) {
-    $checkBoxSpan.hide();
+    $checkBoxSpan.fadeOut();
   } else {
-    $checkBoxSpan.show();
+    $checkBoxSpan.fadeIn();
   }
 });
 
@@ -266,15 +266,15 @@ $ccNumSpan2.hide();
         const $ccNumVal = $('#cc-num').val();
         const $ccNumRegex = /^\d{13,16}$/;
         if ($ccNumVal != "") {
-          $ccNumSpan.hide();
+          $ccNumSpan.fadeOut();
           if (!$ccNumVal.match($ccNumRegex)) {
-            $ccNumSpan2.show();
+            $ccNumSpan2.fadeIn();
           } else {
-            $ccNumSpan2.hide();
+            $ccNumSpan2.fadeOut();
           }
         } else {
-          $ccNumSpan2.hide();
-          $ccNumSpan.show();
+          $ccNumSpan2.fadeOut();
+          $ccNumSpan.fadeIn();
         }
       }
     });
@@ -288,15 +288,15 @@ $ccNumSpan2.hide();
             const $zipVal = $('#zip').val();
             const $zipRegex = /^\d{5}$/;
             if ($zipVal != "") {
-              $zipSpan.hide();
+              $zipSpan.fadeOut();
               if (!$zipVal.match($zipRegex)) {
-                $zipSpan.show();
+                $zipSpan.fadeIn();
               } else {
-                $zipSpan.hide();
+                $zipSpan.fadeOut();
               }
             } else {
-              $zipSpan.hide();
-              $zipSpan.show();
+              $zipSpan.fadeOut();
+              $zipSpan.fadeIn();
             }
           }
         });
@@ -310,15 +310,15 @@ $ccNumSpan2.hide();
                 const $cvvVal = $('#cvv').val();
                 const $cvvRegex = /^\d{3}$/;
                 if ($cvvVal != "") {
-                  $cvvSpan.hide();
+                  $cvvSpan.fadeOut();
                   if (!$cvvVal.match($cvvRegex)) {
-                    $cvvSpan.show();
+                    $cvvSpan.fadeIn();
                   } else {
-                    $cvvSpan.hide();
+                    $cvvSpan.fadeOut();
                   }
                 } else {
-                  $cvvSpan.hide();
-                  $cvvSpan.show();
+                  $cvvSpan.fadeOut();
+                  $cvvSpan.fadeIn();
                 }
               }
             });
@@ -338,44 +338,42 @@ const $cvvRegex = /^\d{3}$/;
 
 if ($nameVal == "") {
   e.preventDefault();
-  $buttonErrorSpan.show();
+  $buttonErrorSpan.fadeIn();
 } else {
-  $buttonErrorSpan.hide();
+  $buttonErrorSpan.fadeOut();
 }
 if (!$mailVal.match($mailRegex)) {
   e.preventDefault();
-  $buttonErrorSpan.show();
+  $buttonErrorSpan.fadeIn();
 } else {
-  $buttonErrorSpan.hide();
+  $buttonErrorSpan.fadeOut();
 }
 if (!$('input[type=checkbox]:checked').length) {
   e.preventDefault();
-  $buttonErrorSpan.show();
-}
-else {
-  $buttonErrorSpan.hide();
+  $buttonErrorSpan.fadeIn
+  $buttonErrorSpan.fadeOut();
 }
 if ($paymentMeth.val() == 'credit card') {
 if ($ccNumVal == "") {
   e.preventDefault();
-  $buttonErrorSpan.show();
+  $buttonErrorSpan.fadeIn();
 }
 else {
-  $buttonErrorSpan.hide();
+  $buttonErrorSpan.fadeOut();
 }
 if ($zipVal == "") {
   e.preventDefault();
-  $buttonErrorSpan.show();
+  $buttonErrorSpan.fadeIn();
 }
 else {
-  $buttonErrorSpan.hide();
+  $buttonErrorSpan.fadeOut();
 }
   if ($cvvVal == "") {
   e.preventDefault();
-  $buttonErrorSpan.show();
+  $buttonErrorSpan.fadeIn();
 }
 else {
-  $buttonErrorSpan.hide();
+  $buttonErrorSpan.fadeOut();
 }
 }
 });
