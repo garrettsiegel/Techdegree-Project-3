@@ -355,21 +355,30 @@ if (!$('input[type=checkbox]:checked').length) {
   $buttonErrorSpan.hide();
 }
 if ($paymentMeth.val() == 'credit card') {
-if ($ccNumVal == "") {
+  const $ccNumVal = $('#cc-num').val();
+  const $ccNumRegex = /^\d{13,16}$/;
+  const $zipVal = $('#zip').val();
+  const $zipRegex = /^\d{5}$/;
+  const $cvvVal = $('#cvv').val();
+  const $cvvRegex = /^\d{3}$/;
+// if ($ccNumVal == "") {
+  if (!$ccNumVal.match($ccNumRegex)) {
   e.preventDefault();
   $buttonErrorSpan.show();
 }
 else {
   $buttonErrorSpan.hide();
 }
-if ($zipVal == "") {
+// if ($zipVal == "") {
+if (!$zipVal.match($zipRegex)) {
   e.preventDefault();
   $buttonErrorSpan.show();
 }
 else {
   $buttonErrorSpan.hide();
 }
-  if ($cvvVal == "") {
+  // if ($cvvVal == "") {
+if (!$cvvVal.match($cvvRegex)) {
   e.preventDefault();
   $buttonErrorSpan.show();
 }
