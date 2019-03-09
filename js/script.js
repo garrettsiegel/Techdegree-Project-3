@@ -215,15 +215,15 @@ $nameInput.keyup( () => {
   const $nameVal = $nameInput.val();
   const $nameRegex = /^[a-zA-Z]+(\s[a-zA-Z]+)?(\s)?$/i;
   if ($nameVal != "") {
-    $nameSpan2.fadeOut();
+    $nameSpan2.hide();
     if (!$nameVal.match($nameRegex)) {
-      $nameSpan.fadeIn();
+      $nameSpan.show();
     } else {
-      $nameSpan.fadeOut();
+      $nameSpan.hide();
     }
   } else {
-    $nameSpan.fadeOut();
-    $nameSpan2.fadeIn();
+    $nameSpan.hide();
+    $nameSpan2.show();
   }
 });
 
@@ -232,9 +232,9 @@ $mailInput.keyup( () => {
   const $mailVal = $mailInput.val();
   const $mailRegex = /^[^@]+@[^@.]+\.[a-z]+$/i;
   if (!$mailVal.match($mailRegex)) {
-    $mailSpan.fadeIn();
+    $mailSpan.show();
   } else {
-    $mailSpan.fadeOut();
+    $mailSpan.hide();
   }
 });
 
@@ -245,9 +245,9 @@ $checkBox.after($checkBoxSpan);
 
 $checkBox.on('change', e => {
   if ($('input[type=checkbox]:checked').length) {
-    $checkBoxSpan.fadeOut();
+    $checkBoxSpan.hide();
   } else {
-    $checkBoxSpan.fadeIn();
+    $checkBoxSpan.show();
   }
 });
 
@@ -266,15 +266,15 @@ $ccNumSpan2.hide();
         const $ccNumVal = $('#cc-num').val();
         const $ccNumRegex = /^\d{13,16}$/;
         if ($ccNumVal != "") {
-          $ccNumSpan.fadeOut();
+          $ccNumSpan.hide();
           if (!$ccNumVal.match($ccNumRegex)) {
-            $ccNumSpan2.fadeIn();
+            $ccNumSpan2.show();
           } else {
-            $ccNumSpan2.fadeOut();
+            $ccNumSpan2.hide();
           }
         } else {
-          $ccNumSpan2.fadeOut();
-          $ccNumSpan.fadeIn();
+          $ccNumSpan2.hide();
+          $ccNumSpan.show();
         }
       }
     });
@@ -288,15 +288,15 @@ $ccNumSpan2.hide();
             const $zipVal = $('#zip').val();
             const $zipRegex = /^\d{5}$/;
             if ($zipVal != "") {
-              $zipSpan.fadeOut();
+              $zipSpan.hide();
               if (!$zipVal.match($zipRegex)) {
-                $zipSpan.fadeIn();
+                $zipSpan.show();
               } else {
-                $zipSpan.fadeOut();
+                $zipSpan.hide();
               }
             } else {
-              $zipSpan.fadeOut();
-              $zipSpan.fadeIn();
+              $zipSpan.hide();
+              $zipSpan.show();
             }
           }
         });
@@ -310,15 +310,15 @@ $ccNumSpan2.hide();
                 const $cvvVal = $('#cvv').val();
                 const $cvvRegex = /^\d{3}$/;
                 if ($cvvVal != "") {
-                  $cvvSpan.fadeOut();
+                  $cvvSpan.hide();
                   if (!$cvvVal.match($cvvRegex)) {
-                    $cvvSpan.fadeIn();
+                    $cvvSpan.show();
                   } else {
-                    $cvvSpan.fadeOut();
+                    $cvvSpan.hide();
                   }
                 } else {
-                  $cvvSpan.fadeOut();
-                  $cvvSpan.fadeIn();
+                  $cvvSpan.hide();
+                  $cvvSpan.show();
                 }
               }
             });
@@ -338,42 +338,43 @@ const $cvvRegex = /^\d{3}$/;
 
 if ($nameVal == "") {
   e.preventDefault();
-  $buttonErrorSpan.fadeIn();
+  $buttonErrorSpan.show();
 } else {
-  $buttonErrorSpan.fadeOut();
+  $buttonErrorSpan.hide();
 }
 if (!$mailVal.match($mailRegex)) {
   e.preventDefault();
-  $buttonErrorSpan.fadeIn();
+  $buttonErrorSpan.show();
 } else {
-  $buttonErrorSpan.fadeOut();
+  $buttonErrorSpan.hide();
 }
 if (!$('input[type=checkbox]:checked').length) {
   e.preventDefault();
-  $buttonErrorSpan.fadeIn
-  $buttonErrorSpan.fadeOut();
+  $buttonErrorSpan.show();
+} else {
+  $buttonErrorSpan.hide();
 }
 if ($paymentMeth.val() == 'credit card') {
 if ($ccNumVal == "") {
   e.preventDefault();
-  $buttonErrorSpan.fadeIn();
+  $buttonErrorSpan.show();
 }
 else {
-  $buttonErrorSpan.fadeOut();
+  $buttonErrorSpan.hide();
 }
 if ($zipVal == "") {
   e.preventDefault();
-  $buttonErrorSpan.fadeIn();
+  $buttonErrorSpan.show();
 }
 else {
-  $buttonErrorSpan.fadeOut();
+  $buttonErrorSpan.hide();
 }
   if ($cvvVal == "") {
   e.preventDefault();
-  $buttonErrorSpan.fadeIn();
+  $buttonErrorSpan.show();
 }
 else {
-  $buttonErrorSpan.fadeOut();
+  $buttonErrorSpan.hide();
 }
 }
 });
