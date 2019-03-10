@@ -197,7 +197,7 @@ $('#payment').on('change', () => {
 
 //*****BASIC INFO VALIDATION VARIABLES
 const $submitButton = $('button');
-const $buttonErrorSpan = $('<span class="buttonError">Please fix errors before submitting form.</span>');
+const $buttonErrorSpan = $('<span class="buttonError">Please fix errors above before submitting form.</span>');
 $submitButton.after($buttonErrorSpan);
 $buttonErrorSpan.hide();
 const $nameInput = $('#name');
@@ -240,7 +240,7 @@ $mailInput.keyup( () => {
 
 //*****CHECKBOX VALIDATION
 const $checkBox = $('.activities');
-const $checkBoxSpan = $('<span class="checkBoxError">Please select at least one option.</span>');
+const $checkBoxSpan = $('<span class="checkBoxError">Please select at least one activity option.</span>');
 $checkBox.after($checkBoxSpan);
 
 $checkBox.on('change', e => {
@@ -327,6 +327,7 @@ $ccNumSpan2.hide();
 $submitButton.on('click', e => {
 
 const $nameVal = $nameInput.val();
+const $nameRegex = /^[a-zA-Z]+(\s[a-zA-Z]+)?(\s)?$/i;
 const $mailVal = $mailInput.val();
 const $ccNumVal = $('#cc-num').val();
 const $mailRegex = /^[^@]+@[^@.]+\.[a-z]+$/i;
@@ -336,7 +337,7 @@ const $zipRegex = /^\d{5}$/;
 const $cvvVal = $('#cvv').val();
 const $cvvRegex = /^\d{3}$/;
 
-if ($nameVal == "") {
+if ($nameVal == "" || !$nameVal.match($nameRegex)) {
   e.preventDefault();
   $buttonErrorSpan.show();
 } else {
